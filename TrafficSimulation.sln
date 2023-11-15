@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34009.444
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C9B5397F-27B9-4666-89EB-4E7D1390C6FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5DABEB43-6D98-4FE7-BB5E-918C7E131553}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficSimulation.Application.Test", "test\TrafficSimulation.Application.Test\TrafficSimulation.Application.Test.csproj", "{C8EACE21-2C71-4ECE-854E-9AE392ACA6D0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficSimulation.App", "src\TrafficSimulation.App\TrafficSimulation.App.csproj", "{92D28B95-D241-4FE8-A67F-1BE09D6A7F39}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficSimulation.Application", "src\TrafficSimulation.Application\TrafficSimulation.Application.csproj", "{F2849725-4B5B-4E9A-809D-A03B892896CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficSimulation.Domain", "src\TrafficSimulation.Domain\TrafficSimulation.Domain.csproj", "{C5900A6D-DB50-4BFB-842F-692C207E213F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficSimulation.Infrastructure", "src\TrafficSimulation.Infrastructure\TrafficSimulation.Infrastructure.csproj", "{EE727C10-EC23-491C-96B5-7FD9CF1A4335}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8EACE21-2C71-4ECE-854E-9AE392ACA6D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8EACE21-2C71-4ECE-854E-9AE392ACA6D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8EACE21-2C71-4ECE-854E-9AE392ACA6D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8EACE21-2C71-4ECE-854E-9AE392ACA6D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92D28B95-D241-4FE8-A67F-1BE09D6A7F39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92D28B95-D241-4FE8-A67F-1BE09D6A7F39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92D28B95-D241-4FE8-A67F-1BE09D6A7F39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92D28B95-D241-4FE8-A67F-1BE09D6A7F39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2849725-4B5B-4E9A-809D-A03B892896CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2849725-4B5B-4E9A-809D-A03B892896CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2849725-4B5B-4E9A-809D-A03B892896CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2849725-4B5B-4E9A-809D-A03B892896CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5900A6D-DB50-4BFB-842F-692C207E213F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5900A6D-DB50-4BFB-842F-692C207E213F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5900A6D-DB50-4BFB-842F-692C207E213F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5900A6D-DB50-4BFB-842F-692C207E213F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE727C10-EC23-491C-96B5-7FD9CF1A4335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE727C10-EC23-491C-96B5-7FD9CF1A4335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE727C10-EC23-491C-96B5-7FD9CF1A4335}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE727C10-EC23-491C-96B5-7FD9CF1A4335}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C8EACE21-2C71-4ECE-854E-9AE392ACA6D0} = {5DABEB43-6D98-4FE7-BB5E-918C7E131553}
+		{92D28B95-D241-4FE8-A67F-1BE09D6A7F39} = {C9B5397F-27B9-4666-89EB-4E7D1390C6FC}
+		{F2849725-4B5B-4E9A-809D-A03B892896CE} = {C9B5397F-27B9-4666-89EB-4E7D1390C6FC}
+		{C5900A6D-DB50-4BFB-842F-692C207E213F} = {C9B5397F-27B9-4666-89EB-4E7D1390C6FC}
+		{EE727C10-EC23-491C-96B5-7FD9CF1A4335} = {C9B5397F-27B9-4666-89EB-4E7D1390C6FC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {225B0E2E-CD7B-4B35-9AFF-21B9F1ABFABE}
+	EndGlobalSection
+EndGlobal
