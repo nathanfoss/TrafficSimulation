@@ -17,7 +17,9 @@ namespace TrafficSimulation.Application.Vehicles
         public VehicleValidator()
         {
             RuleFor(x => x.Speed).GreaterThanOrEqualTo(0);
-            RuleFor(x => x.LaneNumber).GreaterThanOrEqualTo(0);
+            RuleFor(x => x.Position).NotNull();
+            RuleFor(x => x.VehicleType).NotNull();
+            RuleFor(x => x.Position.LaneNumber).GreaterThanOrEqualTo(0);
         }
     }
 }

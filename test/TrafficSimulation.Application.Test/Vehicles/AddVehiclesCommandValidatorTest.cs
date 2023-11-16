@@ -19,7 +19,10 @@ namespace TrafficSimulation.Application.Test.Vehicles
                         new Vehicle
                         {
                             Speed = speed,
-                            LaneNumber = lane
+                            Position = new VehiclePosition
+                            {
+                                LaneNumber = lane
+                            }
                         }
                     }
                 }, () => null, CancellationToken.None));

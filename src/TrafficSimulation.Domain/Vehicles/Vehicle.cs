@@ -4,15 +4,15 @@
     {
         public Guid Id { get; set; }
 
-        public int LaneNumber { get; set; }
+        public VehicleType VehicleType { get; set; }
 
         public int Speed { get; set; }
 
-        public int Position { get; set; }
+        public VehiclePosition Position { get; set; }
 
         public override string ToString()
         {
-            return $"Lane: {LaneNumber}, Position: {Position} Speed: {Speed}";
+            return $"Type: {VehicleType}, Position: {Position} Speed: {Speed}";
         }
     }
 }

@@ -16,26 +16,39 @@ namespace TrafficSimulation.Application.Test.Vehicles
 
         [Theory]
         [InlineData(0, 0, 0, 0, false)]
+        [InlineData(0, 0, 10, 0, false)]
+        [InlineData(0, 0, -10, 0, false)]
         [InlineData(1, 0, 1, 1, true)]
-        [InlineData(1, 0, 10, 1, true)]
-        [InlineData(1, 0, 10, 0, true)]
+        [InlineData(1, 0, 100, 1, true)]
+        [InlineData(1, 0, 100, 0, true)]
         public async Task ShouldReturnFailureIfVehiclesInSamePosition(int position1, int lane1, int position2, int lane2, bool succeeded)
         {
             // Given
+            var vehicleType = VehicleTypes.Sedan;
             var vehicles = new List<Vehicle>
             {
                 new Vehicle
                 {
                     Id = Guid.NewGuid(),
-                    LaneNumber = lane1,
-                    Position = position1,
+                    VehicleType = vehicleType,
+                    Position = new VehiclePosition
+                    {
+                        Front = position1,
+                        LaneNumber = lane1,
+                        Back = position1 - vehicleType.Size
+                    },
                     Speed = 0
                 },
                 new Vehicle
                 {
                     Id = Guid.NewGuid(),
-                    LaneNumber = lane2,
-                    Position = position2,
+                    VehicleType = vehicleType,
+                    Position = new VehiclePosition
+                    {
+                        Front = position2,
+                        LaneNumber = lane2,
+                        Back = position2 - vehicleType.Size
+                    },
                     Speed = 0
                 }
             };

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using MathNet.Numerics.Distributions;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TrafficSimulation.Application.Roads;
@@ -40,13 +41,34 @@ await mediatr.Send(new AddRoadCommand
 });
 
 var random = new Random();
-var vehicles = Enumerable.Range(0, 100).Select(_ => new Vehicle
+var normal = new Normal(speed, 10);
+
+var vehicleTypes = new List<VehicleType>
 {
-    Id = Guid.NewGuid(),
-    LaneNumber = random.Next(0, lanes),
-    Position = random.Next(-1000, 1000),
-    Speed = random.Next(0, speed + 20)
-}).OrderBy(x => x.Position);
+    VehicleTypes.Compact,
+    VehicleTypes.Sedan,
+    VehicleTypes.Pickup,
+    VehicleTypes.Minivan,
+    VehicleTypes.Semi,
+    VehicleTypes.Motorcycle
+};
+var vehicles = Enumerable.Range(0, 10).Select(_ =>
+{
+    var position = random.Next(-5280, 5280);
+    var vehicleType = vehicleTypes[random.Next(0, vehicleTypes.Count)];
+    return new Vehicle
+    {
+        Id = Guid.NewGuid(),
+        Position = new VehiclePosition
+        {
+            LaneNumber = random.Next(0, lanes),
+            Front = position,
+            Back = position - vehicleType.Size
+        },
+        VehicleType = vehicleType,
+        Speed = Convert.ToInt32(normal.Sample())
+    };
+}).OrderByDescending(x => x.Position.Front);
 
 await mediatr.Send(new AddVehiclesCommand { Vehicles = vehicles });
 foreach (var vehicle in vehicles)

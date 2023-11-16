@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using TrafficSimulation.Application.Extensions;
 using TrafficSimulation.Domain.Vehicles;
 
 namespace TrafficSimulation.Application.Vehicles
@@ -40,14 +41,12 @@ namespace TrafficSimulation.Application.Vehicles
 
         private void ValidateVehiclePosition(IEnumerable<Vehicle> vehicles)
         {
-            var duplicates = vehicles.GroupBy(x => new { x.Position, x.LaneNumber })
-                .Where(x => x.Count() > 1)
-                .Select(x => x.Key)
-                .ToList();
-            if (duplicates.Any())
+            var collisions = vehicles.Where(v => v.HasCollidedWithAnotherVehicle(vehicles)).ToList();
+
+            if (collisions.Any())
             {
-                var duplicatePosition = duplicates.First();
-                throw new ValidationException($"Duplicate vehicles found at position {duplicatePosition.Position} and lane {duplicatePosition.LaneNumber}");
+                var duplicatePosition = collisions.First();
+                throw new ValidationException($"Collision found at position {duplicatePosition.Position}");
             }
         }
     }

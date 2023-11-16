@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using TrafficSimulation.Domain.Vehicles;
+﻿using TrafficSimulation.Domain.Vehicles;
 
 namespace TrafficSimulation.Infrastructure.Vehicles
 {
@@ -19,15 +18,15 @@ namespace TrafficSimulation.Infrastructure.Vehicles
 
         public Vehicle Get(Guid vehicleId)
         {
-            return _vehicles.FirstOrDefault(x => x.Id == vehicleId);
+            return _vehicles.First(x => x.Id == vehicleId);
         }
 
         public IEnumerable<Vehicle> GetNearby(Vehicle vehicle)
         {
-            var minPosition = vehicle.Position - vehicle.Speed;
-            var maxPosition = vehicle.Position + vehicle.Speed;
+            var minPosition = vehicle.Position.Back - vehicle.Speed;
+            var maxPosition = vehicle.Position.Front + vehicle.Speed;
 
-            return _vehicles.Where(x => x.Id != vehicle.Id && x.Position >= minPosition && x.Position <= maxPosition);
+            return _vehicles.Where(x => x.Id != vehicle.Id && x.Position.Front >= minPosition && x.Position.Back <= maxPosition);
         }
 
         public void Update(Vehicle vehicle)
@@ -35,7 +34,6 @@ namespace TrafficSimulation.Infrastructure.Vehicles
             var vehicleToUpdate = Get(vehicle.Id);
             vehicleToUpdate.Position = vehicle.Position;
             vehicleToUpdate.Speed = vehicle.Speed;
-            vehicleToUpdate.LaneNumber = vehicle.LaneNumber;
         }
     }
 }
