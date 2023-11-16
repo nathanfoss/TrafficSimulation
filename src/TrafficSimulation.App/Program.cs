@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TrafficSimulation.Application.Roads;
 using TrafficSimulation.Application.Vehicles;
+using TrafficSimulation.Domain.Drivers;
 using TrafficSimulation.Domain.Roads;
 using TrafficSimulation.Domain.Vehicles;
 using TrafficSimulation.Infrastructure.Roads;
@@ -56,6 +57,7 @@ var vehicles = Enumerable.Range(0, 10).Select(_ =>
 {
     var position = random.Next(-5280, 5280);
     var vehicleType = vehicleTypes[random.Next(0, vehicleTypes.Count)];
+    var vehicleSpeed = Convert.ToInt32(normal.Sample());
     return new Vehicle
     {
         Id = Guid.NewGuid(),
@@ -66,7 +68,12 @@ var vehicles = Enumerable.Range(0, 10).Select(_ =>
             Back = position - vehicleType.Size
         },
         VehicleType = vehicleType,
-        Speed = Convert.ToInt32(normal.Sample())
+        Driver = new Driver
+        {
+            DesiredSpeed = vehicleSpeed,
+            FollowingInterval = new Normal(3, .75).Sample()
+        },
+        Speed = vehicleSpeed
     };
 }).OrderByDescending(x => x.Position.Front);
 

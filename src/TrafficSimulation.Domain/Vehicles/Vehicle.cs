@@ -1,4 +1,6 @@
-﻿namespace TrafficSimulation.Domain.Vehicles
+﻿using TrafficSimulation.Domain.Drivers;
+
+namespace TrafficSimulation.Domain.Vehicles
 {
     public class Vehicle
     {
@@ -9,6 +11,8 @@
         public int Speed { get; set; }
 
         public VehiclePosition Position { get; set; }
+
+        public Driver Driver { get; set; }
 
         public override string ToString()
         {
