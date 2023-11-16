@@ -2,8 +2,11 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TrafficSimulation.Application.Roads;
+using TrafficSimulation.Application.Vehicles;
 using TrafficSimulation.Domain.Roads;
+using TrafficSimulation.Domain.Vehicles;
 using TrafficSimulation.Infrastructure.Roads;
+using TrafficSimulation.Infrastructure.Vehicles;
 
 var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
@@ -13,6 +16,7 @@ var configuration = new ConfigurationBuilder()
 var services = new ServiceCollection()
     .AddLogging()
     .AddSingleton<IRoadService, RoadService>()
+    .AddSingleton<IVehicleService, VehicleService>()
     .AddMediatR(cfg =>
     {
         cfg.RegisterServicesFromAssembly(typeof(AddRoadCommand).Assembly);
@@ -34,3 +38,18 @@ await mediatr.Send(new AddRoadCommand
         Lanes = lanes
     }
 });
+
+var random = new Random();
+var vehicles = Enumerable.Range(0, 100).Select(_ => new Vehicle
+{
+    Id = Guid.NewGuid(),
+    LaneNumber = random.Next(0, lanes),
+    Position = random.Next(-1000, 1000),
+    Speed = random.Next(0, speed + 20)
+}).OrderBy(x => x.Position);
+
+await mediatr.Send(new AddVehiclesCommand { Vehicles = vehicles });
+foreach (var vehicle in vehicles)
+{
+    Console.WriteLine($"{vehicle}");
+}
