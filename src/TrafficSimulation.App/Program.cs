@@ -32,20 +32,21 @@ var speed = int.Parse(Console.ReadLine());
 Console.WriteLine("Please enter the number of lanes (1-7)");
 var lanes = int.Parse(Console.ReadLine());
 
+var road = new Road
+{
+    SpeedLimit = speed,
+    Lanes = lanes
+};
 await mediatr.Send(new AddRoadCommand
 {
-    Road = new Road
-    {
-        SpeedLimit = speed,
-        Lanes = lanes
-    }
+    Road = road
 });
 
 var random = new Random();
 var normal = new Normal(speed, 10);
 
 var vehicleTypes = VehicleTypes.All;
-var vehicles = Enumerable.Range(0, 50).Select(_ =>
+var vehiclesToAdd = Enumerable.Range(0, 50).Select(_ =>
 {
     var position = random.Next(-5280, 5280);
     var vehicleType = vehicleTypes[random.Next(0, vehicleTypes.Count)];
@@ -67,10 +68,20 @@ var vehicles = Enumerable.Range(0, 50).Select(_ =>
         },
         Speed = vehicleSpeed
     };
-}).OrderByDescending(x => x.Position.Front);
+});
 
-await mediatr.Send(new AddVehiclesCommand { Vehicles = vehicles });
+var vehicleResult = await mediatr.Send(new AddVehiclesCommand { Vehicles = vehiclesToAdd });
+var vehicles = vehicleResult.Response;
 foreach (var vehicle in vehicles)
 {
     Console.WriteLine($"{vehicle}");
+}
+
+while (true)
+{
+    foreach (var vehicle in vehicles)
+    {
+        var updateResponse = await mediatr.Send(new MoveVehicleCommand { Road = road, Vehicle = vehicle });
+        Console.WriteLine($"{updateResponse.Response}");
+    }
 }

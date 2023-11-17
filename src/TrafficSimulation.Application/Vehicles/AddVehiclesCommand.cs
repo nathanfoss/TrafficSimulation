@@ -55,7 +55,7 @@ namespace TrafficSimulation.Application.Vehicles
                 filteredOutVehicleIds.AddRange(vehicle.GetVehicleCollisions(collisions).Select(v => v.Id));
             }
 
-            return filteredVehicles;
+            return filteredVehicles.OrderByDescending(v => v.Position.Front);
         }
     }
 }
