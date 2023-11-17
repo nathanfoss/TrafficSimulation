@@ -44,16 +44,8 @@ await mediatr.Send(new AddRoadCommand
 var random = new Random();
 var normal = new Normal(speed, 10);
 
-var vehicleTypes = new List<VehicleType>
-{
-    VehicleTypes.Compact,
-    VehicleTypes.Sedan,
-    VehicleTypes.Pickup,
-    VehicleTypes.Minivan,
-    VehicleTypes.Semi,
-    VehicleTypes.Motorcycle
-};
-var vehicles = Enumerable.Range(0, 10).Select(_ =>
+var vehicleTypes = VehicleTypes.All;
+var vehicles = Enumerable.Range(0, 50).Select(_ =>
 {
     var position = random.Next(-5280, 5280);
     var vehicleType = vehicleTypes[random.Next(0, vehicleTypes.Count)];

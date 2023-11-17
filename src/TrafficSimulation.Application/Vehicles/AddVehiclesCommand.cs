@@ -27,8 +27,7 @@ namespace TrafficSimulation.Application.Vehicles
         {
             try
             {
-                var vehicles = request.Vehicles;
-                ValidateVehiclePosition(vehicles);
+                var vehicles = FilterOverlappingVehicles(request.Vehicles);
                 vehicleService.Add(vehicles);
                 return Task.FromResult(Result<IEnumerable<Vehicle>>.Success(vehicles));
             }
@@ -39,15 +38,24 @@ namespace TrafficSimulation.Application.Vehicles
             }
         }
 
-        private void ValidateVehiclePosition(IEnumerable<Vehicle> vehicles)
+        private IEnumerable<Vehicle> FilterOverlappingVehicles(IEnumerable<Vehicle> vehicles)
         {
-            var collisions = vehicles.Where(v => v.HasCollidedWithAnotherVehicle(vehicles)).ToList();
+            var filteredVehicles = vehicles.Where(v => !v.HasCollidedWithAnotherVehicle(vehicles)).ToList();
+            var filteredOutVehicleIds = new List<Guid>();
 
-            if (collisions.Any())
+            var collisions = vehicles.Where(v => v.HasCollidedWithAnotherVehicle(vehicles));
+            foreach (var vehicle in collisions)
             {
-                var duplicatePosition = collisions.First();
-                throw new ValidationException($"Collision found at position {duplicatePosition.Position}");
+                if (filteredOutVehicleIds.Contains(vehicle.Id))
+                {
+                    continue;
+                }
+
+                filteredVehicles.Add(vehicle);
+                filteredOutVehicleIds.AddRange(vehicle.GetVehicleCollisions(collisions).Select(v => v.Id));
             }
+
+            return filteredVehicles;
         }
     }
 }

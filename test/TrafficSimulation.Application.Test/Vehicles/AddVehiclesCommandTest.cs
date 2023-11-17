@@ -15,13 +15,13 @@ namespace TrafficSimulation.Application.Test.Vehicles
         }
 
         [Theory]
-        [InlineData(0, 0, 0, 0, false)]
-        [InlineData(0, 0, 10, 0, false)]
-        [InlineData(0, 0, -10, 0, false)]
-        [InlineData(1, 0, 1, 1, true)]
-        [InlineData(1, 0, 100, 1, true)]
-        [InlineData(1, 0, 100, 0, true)]
-        public async Task ShouldReturnFailureIfVehiclesInSamePosition(int position1, int lane1, int position2, int lane2, bool succeeded)
+        [InlineData(0, 0, 0, 0, 1, true)]
+        [InlineData(0, 0, 10, 0, 1, true)]
+        [InlineData(0, 0, -10, 0, 1, true)]
+        [InlineData(1, 0, 1, 1, 2, true)]
+        [InlineData(1, 0, 100, 1, 2, true)]
+        [InlineData(1, 0, 100, 0, 2, true)]
+        public async Task ShouldFilterOutVehiclesInSamePosition(int position1, int lane1, int position2, int lane2, int addedCount, bool succeeded)
         {
             // Given
             var vehicleType = VehicleTypes.Sedan;
@@ -60,6 +60,7 @@ namespace TrafficSimulation.Application.Test.Vehicles
             }, CancellationToken.None);
 
             // Then
+            mockVehicleService.Verify(x => x.Add(It.Is<IEnumerable<Vehicle>>(l => l.Count() == addedCount)));
             result.Succeeded.Should().Be(succeeded);
         }
     }

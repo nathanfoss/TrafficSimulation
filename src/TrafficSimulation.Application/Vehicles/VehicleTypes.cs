@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TrafficSimulation.Domain.Vehicles;
+﻿using TrafficSimulation.Domain.Vehicles;
 
 namespace TrafficSimulation.Application.Vehicles
 {
@@ -43,6 +38,16 @@ namespace TrafficSimulation.Application.Vehicles
         {
             Id = VehicleTypeEnum.Motorcycle,
             Size = 8
+        };
+
+        public static List<VehicleType> All = new()
+        {
+            Compact,
+            Sedan,
+            Pickup,
+            Minivan,
+            Semi,
+            Motorcycle
         };
     }
 }
